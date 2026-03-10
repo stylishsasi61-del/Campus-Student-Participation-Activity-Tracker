@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nexus Student Portal | 2520030505</title>
+    <style>
+        :root { --primary: #2384c4; --bg: #f4f7f9; --card: #ffffff; --success: #28a745; --border: #d1d9e0; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); }
+        
+        /* Login */
+        #login-screen { position: fixed; inset: 0; background: #fff; display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .login-box { width: 350px; padding: 30px; border: 1px solid var(--border); border-radius: 8px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .captcha { background: #fdf2f2; padding: 10px; margin: 10px 0; font-weight: bold; color: #d9534f; letter-spacing: 5px; }
+        .btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+
+        /* Layout */
+        #main-app { display: none; min-height: 100vh; flex-direction: row; }
+        .sidebar { width: 220px; background: #fff; border-right: 1px solid var(--border); padding: 20px; }
+        .nav-item { padding: 12px; cursor: pointer; border-bottom: 1px solid #eee; color: #555; }
+        .nav-item.active { color: var(--primary); font-weight: bold; border-left: 4px solid var(--primary); }
+        .content { flex: 1; padding: 30px; overflow-x: auto; }
+
+        /* Components */
+        .card { background: #fff; padding: 20px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; min-width: 800px; }
+        th { background: var(--primary); color: white; padding: 8px; border: 1px solid #ddd; }
+        td { border: 1px solid #ddd; padding: 8px; text-align: center; vertical-align: top; background: white; }
+        .cgpa-box { background: var(--success); color: white; padding: 10px 20px; border-radius: 4px; display: inline-block; font-size: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-box">
+            <h2 style="color: var(--primary);">NEXUS LOGIN</h2>
+            <input type="text" id="uid" placeholder="Registration ID (2520030505)">
+            <input type="password" id="ups" placeholder="Password (2520030505)">
+            <div class="captcha">XJ-772</div>
+            <input type="text" id="ucap" placeholder="Enter Captcha">
+            <button class="btn" onclick="login()">Sign In</button>
+        </div>
+    </div>
+
+    <div id="main-app">
+        <div class="sidebar">
+            <h3 style="color: var(--primary);">NEXUS ERP</h3>
+            <div class="nav-item active" onclick="tab('tt')">Full Timetable</div>
+            <div class="nav-item" onclick="tab('res')">All Course Results</div>
+            <div class="nav-item" onclick="tab('attn')">Attendance</div>
+            <div class="nav-item" style="color:red; margin-top:40px;" onclick="location.reload()">Logout</div>
+        </div>
+
+        <div class="content">
+            <div id="tt" class="tab-pane">
+                <h2>Academic Timetable (Mon - Sat)</h2>
+                <div class="card">
+                    <table>
+                        <thead>
+                            <tr><th>Day</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9-17</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><b>MON</b></td><td>English<br>HC-15A</td><td>English<br>HC-15A</td><td>Data Structure<br>H-302</td><td>Data Structure<br>H-302</td><td>-</td><td>-</td><td>Mathematics<br>H-302</td><td>Mathematics<br>H-302</td><td>-</td></tr>
+                            <tr><td><b>TUE</b></td><td>Mathematics<br>H-302</td><td>Mathematics<br>H-302</td><td>AI Fundamentals<br>405</td><td>AI Fundamentals<br>405</td><td>English<br>406</td><td>English<br>406</td><td>AI Practice<br>HC-14A</td><td>AI Practice<br>HC-14A</td><td>-</td></tr>
+                            <tr><td><b>WED</b></td><td>English<br>HC-15A</td><td>English<br>HC-15A</td><td>-</td><td>-</td><td>Data Structure<br>H-302</td><td>Data Structure<br>H-302</td><td>Mathematics<br>401</td><td>Mathematics<br>401</td><td>-</td></tr>
+                            <tr><td><b>THU</b></td><td>AI Practice<br>305</td><td>AI Practice<br>305</td><td>-</td><td>-</td><td>Data Structure<br>102</td><td>Data Structure<br>102</td><td>English<br>401</td><td>English<br>401</td><td>-</td></tr>
+                            <tr><td><b>FRI</b></td><td>Fundamentals<br>201</td><td>Fundamentals<br>201</td><td>Mathematics<br>H-302</td><td>Mathematics<br>H-302</td><td>AI Theory<br>405</td><td>AI Theory<br>405</td><td>-</td><td>-</td><td>-</td></tr>
+                            <tr><td><b>SAT</b></td><td>Data Structure<br>Lab</td><td>Data Structure<br>Lab</td><td>Fundamentals<br>201</td><td>Fundamentals<br>201</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="res" class="tab-pane" style="display:none;">
+                <h2>Semester End Results (All Subjects)</h2>
+                <div class="card">
+                    <div class="cgpa-box">CGPA : 8.23</div>
+                    <p>Obtained Credits: 15.5 | Cumulative: 127.5</p>
+                </div>
+                <div class="card">
+                    <table>
+                        <thead><tr><th>Code</th><th>Subject Name</th><th>Credits</th><th>Grade</th><th>Status</th></tr></thead>
+                        <tbody>
+                            <tr><td>25SC1204E</td><td>Data Structures</td><td>4.0</td><td>A+</td><td>Pass</td></tr>
+                            <tr><td>25MT1205E</td><td>Mathematics</td><td>3.0</td><td>O</td><td>Pass</td></tr>
+                            <tr><td>25UC0035S</td><td>English (Technical Comm)</td><td>3.0</td><td>A</td><td>Pass</td></tr>
+                            <tr><td>25SC1104E</td><td>AI Fundamentals</td><td>4.0</td><td>A</td><td>Pass</td></tr>
+                            <tr><td>25CS1001F</td><td>Course Fundamentals</td><td>2.0</td><td>B+</td><td>Pass</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="attn" class="tab-pane" style="display:none;">
+                <h2>Attendance Tracking</h2>
+                <div class="card">
+                    <table>
+                        <thead><tr><th>Course</th><th>Attended</th><th>Total</th><th>Percentage</th></tr></thead>
+                        <tbody>
+                            <tr><td>Data Structures</td><td>38</td><td>40</td><td>95%</td></tr>
+                            <tr><td>AI Fundamentals</td><td>27</td><td>30</td><td>90%</td></tr>
+                            <tr><td>English</td><td>22</td><td>25</td><td>88%</td></tr>
+                            <tr><td>Mathematics</td><td>35</td><td>40</td><td>87.5%</td></tr>
+                            <tr><td>Fundamentals</td><td>18</td><td>20</td><td>90%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const id = document.getElementById('uid').value;
+            const ps = document.getElementById('ups').value;
+            const cp = document.getElementById('ucap').value;
+
+            if(id === "2520030505" && ps === "2520030505" && cp === "XJ-772") {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-app').style.display = 'flex';
+            } else {
+                alert("Login Error: Password must be 2520030505 (10 digits). Check your entry!");
+            }
+        }
+
+        function tab(id) {
+            document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.getElementById(id).style.display = 'block';
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
